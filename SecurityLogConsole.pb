@@ -105,7 +105,10 @@ Global NewMap KnownGoods.s()
 NewList ConsoleEntry.ConsoleType()
 
 If FileSize(GetCurrentDirectory()+"config.json") <= 0
-  MessageRequester("Installation","This seems to be your first running."+#CRLF$+"Please open your local security policies, "+#CRLF$+" adv. surveillence -> System surv ->"+#CRLF$+"Detailed Surv. and check[]"+#CRLF$+Chr(34)+"Monitor process creation"+Chr(34)+#CRLF$+"You can also check everything else.")
+  req = MessageRequester("Installation","This seems to be your first running."+#CRLF$+"Please open your local security policies, "+#CRLF$+" adv. monioring -> System monioring ->"+#CRLF$+"Detailed monioring. and check"+#CRLF$+Chr(34)+"Monitor process creation"+Chr(34)+#CRLF$+"You can also check everything else."+#CRLF$+"Shall I open that for you?",#PB_MessageRequester_YesNo)
+  If req = #PB_MessageRequester_Yes
+    RunProgram("secpol.msc","/s",GetCurrentDirectory())
+  EndIf
 EndIf
 Procedure RefreshSecurityEvents(trash)
   RefreshMs = 400
@@ -196,15 +199,19 @@ Repeat
     ;Quesiton Mark
     If pt\x >= DesktopScaledX(WindowX(hwnd)+Width)-40 And pt\x <= DesktopScaledX(WindowX(hwnd)+Width-20)
       If pt\y >= DesktopScaledY(WindowY(hwnd)) And pt\y <= DesktopScaledY(WindowY(hwnd)+20)
-        MessageRequester("HELP","To white and blacklist, open the file config.json at"+#CRLF$+GetCurrentDirectory()+#CRLF$+"and add names between empty free quotes"+#CRLF$+"If you need more visibility, open your local security policies, "+#CRLF$+" adv. surveillence -> System surv ->"+#CRLF$+"Detailed Surv. and check[]"+#CRLF$+Chr(34)+"Monitor process creation"+Chr(34)+#CRLF$+"You can also check everything else.")
+        req = MessageRequester("HELP","To white and blacklist, open the file config.json at"+#CRLF$+GetCurrentDirectory()+#CRLF$+"and add names between empty free quotes"+#CRLF$+"If you need more visibility, open your local security policies, "+#CRLF$+" adv. monioring -> System monioring ->"+#CRLF$+"Detailed monioring. and check"+#CRLF$+Chr(34)+"Monitor process creation"+Chr(34)+#CRLF$+"You can also check everything else."+#CRLF$+"Shall I open that for you?",#PB_MessageRequester_YesNo)
+        If req = #PB_MessageRequester_Yes
+          RunProgram("secpol.msc","/s",GetCurrentDirectory())
+        EndIf
+    
       EndIf
     EndIf
     
   EndIf 
 ForEver
 ; IDE Options = PureBasic 6.00 LTS (Windows - x64)
-; CursorPosition = 181
-; FirstLine = 115
+; CursorPosition = 205
+; FirstLine = 122
 ; Folding = 5
 ; Optimizer
 ; EnableThread
