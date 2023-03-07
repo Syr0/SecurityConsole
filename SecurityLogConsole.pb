@@ -174,6 +174,11 @@ Procedure RefreshSecurityEvents(trash)
     Box(DesktopScaledX(Width)-40,0,20,20,$FF7777)
     DrawText(DesktopScaledX(Width)-40+6,2,"?",$FFFFFF,$FF7777)
     
+    ;Open Button
+    Box(DesktopScaledX(Width)-60,0,20,20,$0FC4F1)
+    DrawText(DesktopScaledX(Width)-60+6,2,Chr(216),$000000,$0FC4F1)
+    
+    
     StopDrawing()
     json = CreateJSON(#PB_Any)
     InsertJSONMap(JSONValue(json),KnownGoods())
@@ -203,15 +208,20 @@ Repeat
         If req = #PB_MessageRequester_Yes
           RunProgram("secpol.msc","/s",GetCurrentDirectory())
         EndIf
-    
+      EndIf
+    EndIf
+    ;Quesiton Mark
+    If pt\x >= DesktopScaledX(WindowX(hwnd)+Width)-60 And pt\x <= DesktopScaledX(WindowX(hwnd)+Width-40)
+      If pt\y >= DesktopScaledY(WindowY(hwnd)) And pt\y <= DesktopScaledY(WindowY(hwnd)+20)
+        RunProgram(GetCurrentDirectory()+"config.json","",GetCurrentDirectory())
       EndIf
     EndIf
     
   EndIf 
 ForEver
 ; IDE Options = PureBasic 6.00 LTS (Windows - x64)
-; CursorPosition = 205
-; FirstLine = 122
+; CursorPosition = 215
+; FirstLine = 146
 ; Folding = 5
 ; Optimizer
 ; EnableThread
